@@ -1,0 +1,9 @@
+helm install mysqldb \
+  --set auth.rootPassword=password,auth.database=employees \
+  --set secondary.replicaCount=0 \
+  --set primary.service.type=NodePort \
+  --set primary.service.nodePorts.mysql=30103 \
+    bitnami/mysql
+
+
+mysql --port 30103 -h 127.0.0.1   -u root -p  < employees.sql

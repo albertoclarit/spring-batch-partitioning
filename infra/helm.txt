@@ -1,0 +1,10 @@
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install sdf \
+   --set server.service.type=NodePort \
+   --set server.service.nodePort=30100 \
+   --mariadb.auth.rootPassword	Password for the MariaDB root user	""
+   --mariadb.auth.username	Username of new user to create	dataflow
+   mariadb.auth.password	Password for the new user	change-me
+   mariadb.auth.database
+bitnami/spring-cloud-dataflow
+

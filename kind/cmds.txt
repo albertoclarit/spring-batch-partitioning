@@ -1,0 +1,5 @@
+kind create cluster --name spring-data-flow-poc --config=config.yaml
+kind delete cluster --name spring-data-flow-poc
+kind create cluster --name spring-data-flow-poc --config=config-single.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+
