@@ -1,8 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: spring-batch-partitioned-demo
+  name: demo-spring-batch-flow
 spec:
+  ttlSecondsAfterFinished: 60
   template:
     metadata:
       labels:
@@ -10,25 +11,29 @@ spec:
         appType: scdf
         label1: value1
     spec:
+
       restartPolicy: Never
-      serviceAccountName: scdf-sa
+#      serviceAccountName: scdf-sa
       securityContext:
         runAsUser: 99
         fsGroup: 99
-      imagePullSecrets:
-        - name: image-pull-secret
+#      imagePullSecrets:
+#        - name: image-pull-secret
       containers:
         - name: demo-spring-batch-flow
           image: albertoclaritdocker/demo-spring-batch-flow
-          args: ["--spring.cloud.data.flow.platformname=default", "--spring.cloud.task.executionid=100"]
+          args: ["--spring.cloud.data.flow.platformname=default"]
           imagePullPolicy: Always
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 500m
+            limits:
+              memory: 4096Mi
+              cpu: 4000m
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "kube"
             - name: JAVA_OPTS
-              valueFrom:
-                configMapKeyRef:
-                  name: app-runtime
-                  key: java-opts
-          envFrom:
-            - configMapRef:
-                name: app-runtime
+              value: "-XX:MaxDirectMemorySize=10M -XX:MaxMetaspaceSize=105M -XX:ReservedCodeCacheSize=240M -Xss1M -Xmx420M"
   backoffLimit: 0

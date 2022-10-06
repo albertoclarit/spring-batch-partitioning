@@ -1,5 +1,20 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:30103/employees
-    username: root
-    password: password
+#    url: jdbc:mysql://host.docker.internal:30103/employees
+    url: jdbc:mysql://dev-ppe-mysql-settlement.cluster-cohjvotuynbm.us-west-2.rds.amazonaws.com:3306/employees
+    username: settlement_user
+    password: settlement_user
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 3
+  batch:
+    jdbc:
+      initialize-schema: always
+
+
+  cloud:
+    deployer:
+      kubernetes:
+        requests:
+          memory: 256Mi
+          cpu: 500m

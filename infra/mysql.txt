@@ -7,3 +7,14 @@ helm install mysqldb \
 
 
 mysql --port 30103 -h 127.0.0.1   -u root -p  < employees.sql
+
+CREATE TABLE `employees_salary` (
+  `emp_no` int NOT NULL,
+  `birth_date` date NOT NULL,
+  `first_name` varchar(14) NOT NULL,
+  `last_name` varchar(16) NOT NULL,
+  `gender` enum('M','F') NOT NULL,
+  `hire_date` date NOT NULL,
+  `salary` int NOT NULL,
+  PRIMARY KEY (`emp_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

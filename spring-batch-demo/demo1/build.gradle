@@ -20,7 +20,11 @@ repositories {
 }
 
 dependencies {
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-deployer-kubernetes', version: '2.7.6'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-task', version: '2.4.4'
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework.batch:spring-batch-integration'
+	implementation group: 'org.sql2o', name: 'sql2o', version: '1.6.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -34,7 +38,7 @@ tasks.named('test') {
 
 jib {
 	to {
-		image 'localhost:5001/demo-app'
+		image 'albertoclaritdocker/demo-spring-batch-flow'
 	}
 	allowInsecureRegistries true
 }
